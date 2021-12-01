@@ -8,18 +8,18 @@ const Game = () => {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setxIsNext] = useState(true);
 
-  const current = history[stepNumber];
-  const winner = calculateWinner(current);
+  const currentBoard = history[stepNumber];
+  const winner = calculateWinner(currentBoard);
 
-  const handleClick = (i) => {
+  const handleClick = (squareIndex) => {
     const tempHistory = history.slice(0, stepNumber + 1);
-    const current = tempHistory[tempHistory.length - 1];
-    const squares = [...current];
+    const currentBoard = tempHistory[tempHistory.length - 1];
+    const squares = [...currentBoard];
 
     if (calculateWinner(squares) || squares[i]) return;
 
     const tempSquares = [...squares];
-    tempSquares[i] = xIsNext ? "X" : "O";
+    tempSquares[squareIndex] = xIsNext ? "X" : "O";
 
     setHistory(tempHistory.concat([tempSquares]));
     setStepNumber(tempHistory.length);
@@ -30,6 +30,7 @@ const Game = () => {
     setStepNumber(step);
     setxIsNext(step % 2 === 0);
   };
+
   const restart = () => {
     setHistory([Array(9).fill(null)]);
     setStepNumber(0);
@@ -50,7 +51,7 @@ const Game = () => {
   return (
     <div className="game">
       <div className="game-board">
-        <Board squares={current} onClick={handleClick} />
+        <Board squares={currentBoard} onClick={handleClick} />
       </div>
       <div className="game-info">
         <Status />
