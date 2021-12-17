@@ -16,7 +16,7 @@ const Game = () => {
     const currentBoard = tempHistory[tempHistory.length - 1];
     const squares = [...currentBoard];
 
-    if (calculateWinner(squares) || squares[i]) return;
+    if (calculateWinner(squares) || squares[squareIndex]) return;
 
     const tempSquares = [...squares];
     tempSquares[squareIndex] = xIsNext ? "X" : "O";
